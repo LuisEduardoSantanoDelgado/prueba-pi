@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil - Priority Pulse</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
+     <!-- link para sweetalert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css">
+</head>
+<body>
+    <!-- Barra superior -->
+    <nav class="navbar">
+        <div class="box">
+            <button class="open-modal-btn">
+                <span id="racha-fuego" class="racha" style="color: {{ color_racha }}">
+                    {{ racha }} 🔥
+                    <span class="manita">✋</span>
+                    <span class="carita">😊</span>
+                </span>
+            </button>
+        </div>
+        <a href="rutinas">Rutinas</a>
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo-nav">
+        <a href="actividades">Actividades</a>
+        <a href="{{ url_for('login') }}">Cerrar Sesión</a>
+    </nav>
+
+    <main class="contenedor-perfil">
+        <!-- Formulario -->
+        <section class="editar-perfil">
+            <h2>Editar</h2>
+            <form action="{{ url_for('actualizar_perfil') }}" method="POST">
+                <input type="text" placeholder="Nombre" value="{{ usuario.nombre }}" name="nombre">
+                <input type="text" placeholder="Apellido" value="{{ usuario.apellido }}" name="apellido">
+                <input type="password" placeholder="Contraseña" value="{{ usuario.contrasena }}" name="contrasena">
+                <input type="password" placeholder="Confirmar contraseña" value="{{ usuario.contrasena }}" name="confirmar_contrasena">
+                <input type="email" placeholder="Email" value="{{ usuario.email }}" name="email">
+                <button type="submit">Guardar</button>
+            </form>
+            <button type="button" class="eliminar-cuenta" onclick="confirmarEliminarCuenta()">Eliminar cuenta</button>
+        </section>
+
+        <!-- Estadísticas -->
+        <section class="estadisticas">
+            <h2>Estadística de actividades</h2>
+            <h3>{{ mes }}, {{ anio }}</h3>  <!-- Mostrará el mes y año actual -->
+            <table class="calendario">
+                <thead>
+                    <tr>
+                        <th>D</th><th>L</th><th>M</th><th>M</th><th>J</th><th>V</th><th>S</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tbody>
+                        {% for semana in semanas %}
+                        <tr>
+                            {% for dia in semana %}
+                                <td>
+                                    {% if dia != 0 %}
+                                        {% if dias_cumplidos and dia in dias_cumplidos %}
+                                            <span class="{{ dias_cumplidos[dia] }}"></span>
+                                        {% else %}
+                                            {{ dia }}
+                                        {% endif %}
+                                    {% else %}
+                                        &nbsp;
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </tbody>
+            </table>
+
+            <div class="leyenda">
+                <div><span class="una"></span> Al menos una actividad completa</div>
+                <div><span class="completo"></span> Todas las actividades completas</div>
+            </div>
+        </section>
+         {% with mensajes = get_flashed_messages() %}
+            {% if mensajes %}
+                {% for msj in mensajes %}
+                    <h4>{{ msj }}</h4>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+    </main>
+
+    <!-- link para sweetalert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.all.min.js"></script>
+
+    <script>
+        function confirmarEliminarCuenta() {
+            Swal.fire({
+                title: 'Eliminación de cuenta',
+                text: '¿Estás seguro de que deseas eliminar tu cuenta? ALERTA: Esta acción no se puede deshacer.',
+                icon: 'warning',
+                showCancelButton: true,  // Muestra el botón "Cancelar"
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar',
+                reverseButtons: true  // Cambia el orden de los botones (primero el "Cancelar")
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/eliminar_cuenta";
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

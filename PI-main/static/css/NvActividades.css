@@ -1,0 +1,235 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-image: url("../img/fondo.jpg"); 
+    background-size: cover;     
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #b39ddb;
+    padding: 10px 30px;
+    font-weight: bold;
+    
+}
+
+.navbar a {
+    color: #4545EA;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.navbar a:hover{
+    transform: scale(1.1);
+    color: white; /* Texto blanco */
+    transform: translateY(-3px);
+}
+
+.navbar .logo-nav {
+    height: 50px;
+}
+
+.open-modal-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    outline: none;
+    cursor: default;
+}
+
+.open-modal-btn:focus,
+.open-modal-btn:hover {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+
+.crear-actividad {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    max-width: 700px; 
+    width: 100%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.imagen-actividad {
+    max-width: 400px; 
+    height: auto;
+    display: block;
+    margin: 0 auto 20px auto; 
+}
+
+.actividad-titulo {
+    margin: 20px auto;
+    padding: 10px 30px;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    font-weight: bold;
+    font-size: 20px;
+    color: #4f4f4f;
+    text-align: center;
+    border: 1px solid #ccc;
+    display: block;
+    max-width: fit-content;
+}
+
+.actividad-titulo::placeholder {
+    color: #aaa;
+    font-weight: normal;
+}
+
+.actividad-titulo:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(128, 0, 208, 0.2);
+}
+
+.color-palette {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.color-box {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.color-box:hover{
+    transform: scale(1.1);
+}
+
+.pink { background-color: #f48fb1; }
+.orange { background-color: #ffb74d; }
+.red { background-color: #f06292; }
+.green { background-color: #a5d6a7; }
+.yellow { background-color: #fff176; }
+.blue { background-color: #4f83cc; }
+.purple { background-color: #b39ddb; }
+
+form {
+    width: 100%;
+    text-align: left;
+    margin-top: 20px;
+}
+
+form label {
+    font-weight: bolder;
+    font-size: 20px;
+    margin-top: 10px;
+    display: block;
+    color: #4f4f4f;
+}
+
+form input, form select, form textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 16px; 
+}
+
+form textarea {
+    height: 120px;
+}
+
+button.crear-btn {
+    width: 100%;
+    padding: 16px;
+    background-color: #8000d0;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 25px;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+button.crear-btn:hover {
+    background-color: #7b1fa2;
+    transform: scale(1.1);
+}
+
+/* Animación de fuego */
+@keyframes fuego {
+    0% {
+        color: #ff5722;
+        text-shadow: 0 0 20px #ff5722, 0 0 30px #ff5722, 0 0 50px #ff5722, 0 0 70px #ff5722;
+    }
+    50% {
+        color: #ff9800;
+        text-shadow: 0 0 20px #ff9800, 0 0 30px #ff9800, 0 0 50px #ff9800, 0 0 70px #ff9800;
+    }
+    100% {
+        color: #ff5722;
+        text-shadow: 0 0 20px #ff5722, 0 0 30px #ff5722, 0 0 50px #ff5722, 0 0 70px #ff5722;
+    }
+}
+
+/* Fuego en el texto */
+.racha {
+    font-weight: bold;
+    font-size: 24px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    animation: fuego 1.5s infinite alternate; /* Animación para el fuego */
+}
+
+/* Fuego dorado cuando la racha es alta */
+.racha.gold {
+    color: gold; /* Color dorado cuando la racha es completa */
+    animation: none; /* Detener la animación cuando la racha es dorada */
+    text-shadow: 0 0 15px gold, 0 0 30px gold, 0 0 45px gold, 0 0 60px gold;
+}
+
+/* Animación de la manita y carita */
+@keyframes saludo {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(10px);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.5) translateY(10px);
+    }
+}
+
+/* Manita y carita que aparecen solo cuando se alcanza una racha mayor */
+.racha .manita, .racha .carita {
+    display: none;
+    animation: saludo 2s ease-out forwards;
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.racha.saludar .manita, .racha.saludar .carita {
+    display: block;
+}
+

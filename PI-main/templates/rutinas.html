@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rutinas - Priority Pulse</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/rutinas.css') }}">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-left box">
+      <div class="fogata-box">
+        <div class="flame" id="flame"></div>
+        <div class="racha-info">
+          <span>Días:</span>
+          <span id="dias-racha" class="dias-racha">{{ racha }}</span>
+        </div>
+      </div>
+    </div>
+
+    <a href="{{ url_for('actividades') }}" class="brand">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Priority Pulse" class="logo-nav" />
+    </a>
+
+    <div class="nav-right">
+      <nav class="nav-links" id="navLinks">
+        <a href="{{ url_for('rutinas') }}" data-nav class="is-active">Rutinas</a>
+        <a href="{{ url_for('actividades') }}" data-nav>Actividades</a>
+        <a href="{{ url_for('perfil') }}" data-nav>Perfil</a>
+        <a href="{{ url_for('login') }}" data-nav>Cerrar Sesión</a>
+        <span class="nav-indicator"></span>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrapper layout">
+    <section class="panel glass">
+      <div class="panel-header">
+        <div class="title-wrap">
+          <h2>Explorar Rutinas</h2>
+          <p class="subtitle">Colecciones curadas para mejorar tu día</p>
+        </div>
+        <a href="{{ url_for('NvActividad') }}" class="btn-primary">Nueva Actividad</a>
+      </div>
+
+      <div class="toolbar">
+        <div class="search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <input type="text" placeholder="Buscar rutinas, objetivos o categorías" />
+        </div>
+        <div class="filters">
+          <select>
+            <option value="">Nivel</option>
+            <option>Light</option>
+            <option>Inicial</option>
+            <option>Intermedio</option>
+            <option>Avanzado</option>
+          </select>
+          <select>
+            <option value="">Ordenar por</option>
+            <option>Nombre</option>
+            <option>Popularidad</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="chips">
+        {% for c in chips %}
+        <button class="chip">{{ c }}</button>
+        {% endfor %}
+      </div>
+
+      <div class="rutinas-grid">
+        {% for r in rutinas %}
+        <article class="card">
+          <div class="card-media">
+            <img src="{{ url_for('static', filename=r.img) }}" alt="{{ r.title }}">
+            <div class="pill-row">
+              <span class="pill">{{ r.category }}</span>
+              <span class="pill alt">{{ r.level }}</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3>{{ r.title }}</h3>
+            <p class="objective">{{ r.objective }}</p>
+            <ul class="steps">
+              {% for s in r.activities %}
+              <li>{{ s }}</li>
+              {% endfor %}
+            </ul>
+            <div class="actions">
+              <a class="btn-outline" href="{{ url_for('NvActividad') }}?rutina_id={{ r.id }}">Agregar a Actividades</a>
+              <a class="btn-edit" href="{{ url_for('editar_actividad', id=r.id) }}">Editar</a>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <div class="glass widget">
+        <div class="widget-header">
+          <h4>Tu progreso</h4>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-num" id="r-stat-total">0</span>
+            <span class="stat-label">Rutinas agregadas</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" id="r-stat-streak">{{ racha }}</span>
+            <span class="stat-label">Racha</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" id="r-stat-focus">0</span>
+            <span class="stat-label">Días con foco</span>
+          </div>
+        </div>
+        <div class="progress">
+          <div class="progress-top">
+            <span>Meta semanal</span><span id="r-pct">0%</span>
+          </div>
+          <div class="bar"><div class="bar-fill" id="r-bar"></div></div>
+        </div>
+      </div>
+
+      <div class="glass widget">
+        <div class="widget-header"><h4>Tips rápidos</h4></div>
+        <ul class="tips">
+          <li>Empieza con una sola rutina y construye desde ahí.</li>
+          <li>Conecta rutinas con tus actividades para asegurar ejecución.</li>
+          <li>Pequeños cambios diarios generan grandes resultados.</li>
+        </ul>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    (function(){
+      const flame = document.getElementById('flame');
+      const streak = parseInt(document.getElementById('dias-racha').textContent || '0', 10);
+      const level = Math.min(Math.floor(streak/5), 10);
+      flame.style.setProperty('--flame-scale', 1 + level*0.08);
+      const pct = Math.min(streak*10, 100);
+      document.getElementById('r-pct').textContent = pct + '%';
+      document.getElementById('r-bar').style.width = pct + '%';
+    })();
+  </script>
+</body>
+</html>

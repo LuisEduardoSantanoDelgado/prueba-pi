@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Actividades - Priority Pulse</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/actividades.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  {% if errores and errores.actividades_error %}
+  <script>
+    Swal.fire({ title:'Mensaje', text:'{{ errores.actividades_error }}', icon:'error', confirmButtonText:'Aceptar' });
+  </script>
+  {% endif %}
+
+  <header class="navbar">
+    <div class="nav-left box">
+      <div class="fogata-container">
+        <div id="fogata" class="fogata">
+          <div class="llamas">
+            <div class="llama llama-1"></div>
+            <div class="llama llama-2"></div>
+            <div class="llama llama-3"></div>
+            <div class="llama llama-4"></div>
+            <div class="centro"></div>
+            <div class="chispas"></div>
+          </div>
+          <div class="resplandor"></div>
+          <div class="flama" id="flama">
+            <div class="fl-blaze"></div>
+            <div class="fl-core"></div>
+            <div class="fl-glow"></div>
+          </div>
+        </div>
+        <div class="racha-info">
+          <span>Días:</span>
+          <span id="dias-racha" class="dias-racha">{{ racha }}</span>
+        </div>
+      </div>
+    </div>
+
+    <a href="{{ url_for('actividades') }}" class="brand">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Priority Pulse" class="logo-nav" />
+    </a>
+
+    <div class="nav-right">
+      <nav class="nav-links" id="navLinks">
+        <a href="{{ url_for('rutinas') }}" data-nav>Rutinas</a>
+        <a href="{{ url_for('actividades') }}" data-nav class="is-active">Actividades</a>
+        <a href="{{ url_for('perfil') }}" data-nav class="is-active">Perfil</a>
+       
+        <a href="{{ url_for('login') }}" data-nav>Cerrar Sesión</a>
+        <span class="nav-indicator"></span>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrapper layout">
+    <section class="calendario">
+      <div class="calendario-header">
+        <div class="title-wrap">
+          <h2>Tareas por completar</h2>
+          <p class="subtitle">Organiza, filtra y completa tus pendientes del día</p>
+        </div>
+        <a href="{{ url_for('NvActividad') }}" class="agregar-btn">Agregar</a>
+      </div>
+
+      <div class="toolbar">
+        <form class="search search-form" action="{{ url_for('actividades') }}" method="get">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <input type="text" name="q" value="{{ q or '' }}" placeholder="Buscar tareas o descripciones" />
+          <button type="submit" class="btn-search" title="Buscar">Buscar</button>
+          {% if q %}
+          <a href="{{ url_for('actividades') }}" class="btn-clear" title="Limpiar">Limpiar</a>
+          {% endif %}
+        </form>
+      
+        <div class="filters">
+          <div class="view-toggle" role="group" aria-label="Cambiar vista">
+            <button class="is-active" title="Tarjetas">▦</button>
+            <button title="Lista">☰</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="chips">
+        <button class="chip is-active">Hoy</button>
+        <button class="chip">Atrasadas</button>
+        <button class="chip">Esta semana</button>
+        <button class="chip">Sin prioridad</button>
+      </div>
+
+      {% if errores and errores.no_actividades %}
+        <div class="empty">
+          <div class="empty-blob"></div>
+          <h3>No hay actividades para mostrar</h3>
+          <p>Crea tu primera actividad y empieza tu racha 🔥</p>
+          <a href="{{ url_for('NvActividad') }}" class="agregar-btn">Crear actividad</a>
+        </div>
+      {% elif tareas_importantes|length > 0 %}
+        <div class="tarjetas calendario-grid">
+          {% for tarea in tareas_importantes %}
+          <div class="tarjeta {% if tarea.completada %}completada{% endif %}">
+            <div class="tag-row">
+              <span class="tag {% if tarea.prioridad == 'Alta' %}prior-alta{% endif %}">{{ tarea.prioridad }}</span>
+              <span class="tag">{{ tarea.repetir }}</span>
+            </div>
+            <img src="{{ tarea.imagen }}" class="icono-tarea" alt="">
+            <h3>{{ tarea.titulo }}</h3>
+            <span class="meta">{{ tarea.hora }}</span>
+            <p class="descripcion">{{ tarea.descripcion }}</p>
+            <input type="checkbox" class="custom-checkbox" data-id="{{ tarea.id }}" {% if tarea.completada %}checked{% endif %}>
+            <div class="acciones">
+              <a href="javascript:void(0)" class="button" onclick="confirmarEliminacion('{{ tarea.id }}')">Eliminar</a>
+              <a href="{{ url_for('editar_actividad', id=tarea.id) }}" class="button">Actualizar</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty">
+          <div class="empty-blob"></div>
+          <h3>Hay un pequeño inconveniente para mostrar las tareas</h3>
+          <p>Vuelve a intentarlo más tarde o crea una nueva actividad.</p>
+        </div>
+      {% endif %}
+    </section>
+
+    <aside class="sidebar">
+      <div class="widget glass">
+        <div class="widget-header"><h4>Resumen del día</h4></div>
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-num total">{{ tareas_importantes|length }}</span>
+            <span class="stat-label">Total</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num done">{{ tareas_importantes|selectattr('completada')|list|length }}</span>
+            <span class="stat-label">Completadas</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num pending">{{ (tareas_importantes|length) - (tareas_importantes|selectattr('completada')|list|length) }}</span>
+            <span class="stat-label">Pendientes</span>
+          </div>
+        </div>
+        {% set tot = tareas_importantes|length %}
+        {% set done = tareas_importantes|selectattr('completada')|list|length %}
+        {% set pct = (done * 100 // (tot if tot>0 else 1)) %}
+        <div class="progress">
+          <div class="progress-top">
+            <span>Progreso</span><span>{{ pct }}%</span>
+          </div>
+          <div class="bar"><div class="bar-fill" style="width: {{ pct }}%"></div></div>
+        </div>
+      </div>
+
+      <div class="widget glass">
+        <div class="widget-header"><h4>Progreso semanal</h4></div>
+        <div class="week-bars">
+          <div class="d-col" data-day="L"><span></span></div>
+          <div class="d-col" data-day="M"><span></span></div>
+          <div class="d-col" data-day="X"><span></span></div>
+          <div class="d-col" data-day="J"><span></span></div>
+          <div class="d-col" data-day="V"><span></span></div>
+          <div class="d-col" data-day="S"><span></span></div>
+          <div class="d-col" data-day="D"><span></span></div>
+        </div>
+        <p class="mini-hint">Tip: mantener una racha constante multiplica tu motivación.</p>
+      </div>
+
+      <div class="widget glass">
+        <div class="widget-header"><h4>Sugerencias</h4></div>
+        <ul class="tips">
+          <ul>Divide tareas largas en subtareas cortas.</ul>
+          <ul>Reserva 25 min por tarea.</ul>
+          <ul>Programa recordatorios para prioridades “Alta”.</ul>
+        </ul>
+      </div>
+    </aside>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.all.min.js"></script>
+  <script>
+    (function(){
+      const checks = document.querySelectorAll('.custom-checkbox');
+      checks.forEach(cbx => {
+        cbx.addEventListener('change', async (e) => {
+          const id = e.target.getAttribute('data-id');
+          const value = e.target.checked;
+          try {
+            const r = await fetch(`/api/tareas/${id}/toggle`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ completada: value }) });
+            const resp = await r.json();
+            if (resp.ok) {
+              if (value) pulseFlame();
+              await refreshToday();
+              await refreshWeek();
+              await refreshStreak();
+            }
+          } catch (err) {}
+        });
+      });
+    })();
+
+    async function refreshToday() {
+      try {
+        const res = await fetch('/api/metrics/today');
+        const data = await res.json();
+        if (data.error) return;
+        const totalEl = document.querySelector('.stat-num.total');
+        const doneEl  = document.querySelector('.stat-num.done');
+        const pendEl  = document.querySelector('.stat-num.pending');
+        const pctEl   = document.querySelector('.progress-top span:last-child');
+        const barFill = document.querySelector('.bar .bar-fill');
+        if (totalEl) totalEl.textContent = data.total;
+        if (doneEl)  doneEl.textContent  = data.completadas;
+        if (pendEl)  pendEl.textContent  = data.pendientes;
+        if (pctEl)   pctEl.textContent   = data.porcentaje + '%';
+        if (barFill) barFill.style.width = data.porcentaje + '%';
+      } catch (e) {}
+    }
+
+    async function refreshWeek() {
+      try {
+        const res = await fetch('/api/metrics/week');
+        const data = await res.json();
+        if (data.error) return;
+        const cols = document.querySelectorAll('.week-bars .d-col span');
+        data.days.forEach((d, i) => {
+          if (cols[i]) {
+            cols[i].style.height = Math.max(6, d.porcentaje) + '%';
+            cols[i].style.background = d.porcentaje >= 60 ? 'linear-gradient(180deg, rgba(159,122,234,.85), rgba(124,58,237,.40))' : 'linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,.12))';
+          }
+        });
+      } catch (e) {}
+    }
+
+    async function refreshStreak() {
+      try {
+        const res = await fetch('/api/metrics/streak');
+        const data = await res.json();
+        if (data.error) return;
+        const rEl = document.getElementById('dias-racha');
+        if (rEl) rEl.textContent = data.racha;
+        setFlameOn(!!data.today_completed);
+      } catch (e) {}
+    }
+
+    (async () => {
+      await refreshToday();
+      await refreshWeek();
+      await refreshStreak();
+    })();
+
+    function setFlameOn(on){
+      const fl = document.getElementById('flama');
+      if (!fl) return;
+      fl.classList.toggle('on', !!on);
+      fl.classList.toggle('off', !on);
+    }
+
+    function pulseFlame(){
+      const fl = document.getElementById('flama');
+      if (!fl) return;
+      fl.classList.add('pulse');
+      setTimeout(()=>fl.classList.remove('pulse'), 1200);
+    }
+
+    function confirmarEliminacion(id){
+      id = parseInt(id);
+      Swal.fire({
+        title: 'Confirmar eliminación',
+        text: '¿Estás seguro de que deseas eliminar la tarea?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+      }).then((result)=>{ if(result.isConfirmed){ window.location.href = "/eliminar_actividad/"+id; }});
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Actividad</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/NvActividades.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="box">
+                <button class="open-modal-btn">
+                    <span id="racha-fuego" class="racha">
+                        {{ racha }} 🔥
+                        <span class="manita">✋</span>
+                        <span class="carita">😊</span>
+                    </span>
+                </button>
+            </div>
+            <a href="#">Perfil</a>
+            <a href="#">Rutinas</a>
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo-nav">
+            </a>
+            <a href="{{ url_for('actividades') }}">Actividades</a>
+            <a href="#">Cerrar Sesión</a>
+        </nav>
+
+        <div class="info">
+            {% with mensajes = get_flashed_messages() %}
+                {% if mensajes %}
+                    {% for msj in mensajes %}
+                        <h4>{{ msj }}</h4>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            {% if errores %}
+                {% if errores.emptyValues %}
+                    <h4>{{ errores.emptyValues }}</h4>
+                {% endif %}
+                {% if errores.dbError %}
+                    <h4>{{ errores.dbError }}</h4>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <div class="crear-actividad">
+            <form method="POST" action="{{ url_for('editar_actividad', id=actividad.id) }}">
+                <img id="imagen-actividad" src="../{{ actividad.imagen }}"
+                    alt="Imagen de actividad" class="imagen-actividad">
+
+                <input type="text" id="nombre" name="nombre" class="actividad-titulo" placeholder="Tarea"
+                    value="{{ actividad.titulo }}" required>
+
+                <div class="color-palette">
+                    <div class="color-box pink" onclick="cambiarImagen('static/img/Imagen1.png')"></div>
+                    <div class="color-box orange" onclick="cambiarImagen('static/img/imagen3.png')"></div>
+                    <div class="color-box green" onclick="cambiarImagen('static/img/imagen4.png')"></div>
+                    <div class="color-box yellow" onclick="cambiarImagen('static/img/imagen5.png')"></div>
+                    <div class="color-box blue" onclick="cambiarImagen('static/img/imagen2.png')"></div>
+                    <div class="color-box purple" onclick="cambiarImagen('static/img/imagen6.png')"></div>
+                </div>
+
+                <label for="fecha">Fecha</label>
+                <input type="date" id="fecha" name="fecha" value="{{ actividad.fecha.strftime('%Y-%m-%d') }}">
+
+                <label for="repetir">Repetir</label>
+                <select id="repetir" name="repetir">
+                    <option value="diario" {% if actividad.repetir == 'diario' %}selected{% endif %}>Diario</option>
+                    <option value="semanal" {% if actividad.repetir == 'semanal' %}selected{% endif %}>Semanal</option>
+                    <option value="mensual" {% if actividad.repetir == 'mensual' %}selected{% endif %}>Mensual</option>
+                </select>
+
+                <label for="hora">Hora</label>
+                <input type="time" id="hora" name="hora" value="{{ actividad.hora.strftime('%H:%M') }}">
+
+                <label for="prioridad">Prioridad</label>
+                <select id="prioridad" name="prioridad">
+                    <option value="alta" {% if actividad.prioridad == 'alta' %}selected{% endif %}>Alta</option>
+                    <option value="media" {% if actividad.prioridad == 'media' %}selected{% endif %}>Media</option>
+                    <option value="baja" {% if actividad.prioridad == 'baja' %}selected{% endif %}>Baja</option>
+                </select>
+
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" name="descripcion">{{ actividad.descripcion }}</textarea>
+
+                <input type="hidden" id="rutaImagen" name="rutaImagen" value="{{ actividad.imagen }}">
+
+                <button type="submit" class="crear-btn">Actualizar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function cambiarImagen(imagen) {
+            document.getElementById('imagen-actividad').src = imagen;
+            document.getElementById('rutaImagen').value = imagen;
+        }
+    </script>
+</body>
+
+</html>

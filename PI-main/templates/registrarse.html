@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrarse - Priority Pulse</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/registrarse.css') }}">
+</head>
+<body>
+    <div class="register-container">
+        <img src="{{ url_for('static', filename='/img/logo.png') }}" alt="Priority Pulse Logo" class="logo">
+        <h3>Sign Up</h3>
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('registrarse') }}">
+            <div class="row">
+                <input type="text" name="Nombre" placeholder="Nombre" >
+                {% if errores and errores.Nombre %}
+                    <p style="color:red">{{errores.Nombre}}</p>
+                {% endif %}
+
+                <input type="text" name="Apellido" placeholder="Apellido" >
+                {% if errores and errores.Apellido %}
+                    <p style="color:red">{{errores.Apellido}}</p>
+                {% endif %}
+            </div>
+            <div class="row">
+                    <input type="password" name="password" placeholder="Contraseña" id="pwd">
+                    <input type="password" name="confirm_password" placeholder="Confirma tu Contraseña" id="conf_pwd">
+            </div>
+            <div class="row">
+                <input type="email" name="Email" placeholder="Email" >
+                {% if errores and errores.Email %}
+                    <p style="color:red">{{errores.Email}}</p>
+                {% endif %}
+            </div>
+            <button type="submit">Registrarte</button>
+        </form>
+        <p class="login-link">¿Ya tienes una cuenta? <a href="{{ url_for('login') }}">Inicia Sesión</a></p>
+    </div>
+</body>
+</html>

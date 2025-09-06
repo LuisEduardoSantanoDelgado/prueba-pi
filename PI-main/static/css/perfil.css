@@ -1,0 +1,231 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #ffffff;
+}
+
+/* Barra de navegación */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #b39ddb;
+    padding: 10px 30px;
+    font-weight: bold;
+    
+}
+
+.navbar a {
+    color: #4545EA;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.navbar a:hover{
+    transform: scale(1.1);
+    color: white; /* Texto blanco */
+    transform: translateY(-3px);
+}
+
+a {
+    text-decoration: none;
+}
+
+
+.navbar .logo-nav {
+    height: 50px;
+}
+
+.open-modal-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    outline: none;
+    cursor: default;
+}
+
+.open-modal-btn:focus,
+.open-modal-btn:hover {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+/* Contenedor principal */
+.contenedor-perfil {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px;
+    gap: 50px;
+}
+
+/* Tarjeta del formulario */
+.editar-perfil, .estadisticas {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 30px 40px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 350px;
+}
+
+.editar-perfil h2, .estadisticas h2 {
+    font-size: 30px;
+    color: #2a2a91;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.editar-perfil form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.editar-perfil input {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    outline: none;
+    font-size: 16px;
+    color: #4f4f4f;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.editar-perfil button {
+    background-color: #8e24aa;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+    width: 100%;
+    
+}
+
+.editar-perfil button:hover {
+    background-color: #6a1b9a;
+    transform: scale(1.1);
+}
+
+/* Calendario */
+.estadisticas h3 {
+    text-align: center;
+    color: #4f4f4f;
+    margin-bottom: 20px;
+}
+
+.calendario {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.calendario th, .calendario td {
+    padding: 8px;
+    font-weight: bold;
+    color: #2a2a91;
+    font-size: 16px;
+}
+
+/* Íconos de actividad */
+.una::before {
+    content: '📈'; /* Puedes cambiarlo por una imagen o ícono */
+    color: #9c27b0;
+    font-size: 20px;
+}
+
+.completo::before {
+    content: '📈';
+    color: #f4a900;
+    font-size: 20px;
+}
+
+/* Leyenda */
+.leyenda {
+    font-size: 14px;
+    color: #333;
+}
+
+.leyenda div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.azul { background: #4f83cc; color: white; }
+.rosa { background: #f48fb1; color: white; }
+.naranja { background: #ffb74d; color: white; }
+.gris { background: #e0e0e0; color: #333; }
+.verde { background: #a5d6a7; color: #1b5e20; }
+
+/* Animación de fuego */
+@keyframes fuego {
+    0% {
+        color: #ff5722;
+        text-shadow: 0 0 20px #ff5722, 0 0 30px #ff5722, 0 0 50px #ff5722, 0 0 70px #ff5722;
+    }
+    50% {
+        color: #ff9800;
+        text-shadow: 0 0 20px #ff9800, 0 0 30px #ff9800, 0 0 50px #ff9800, 0 0 70px #ff9800;
+    }
+    100% {
+        color: #ff5722;
+        text-shadow: 0 0 20px #ff5722, 0 0 30px #ff5722, 0 0 50px #ff5722, 0 0 70px #ff5722;
+    }
+}
+
+/* Fuego en el texto */
+.racha {
+    font-weight: bold;
+    font-size: 24px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    animation: fuego 1.5s infinite alternate; /* Animación para el fuego */
+}
+
+/* Fuego dorado cuando la racha es alta */
+.racha.gold {
+    color: gold; /* Color dorado cuando la racha es completa */
+    animation: none; /* Detener la animación cuando la racha es dorada */
+    text-shadow: 0 0 15px gold, 0 0 30px gold, 0 0 45px gold, 0 0 60px gold;
+}
+
+/* Animación de la manita y carita */
+@keyframes saludo {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(10px);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.5) translateY(10px);
+    }
+}
+
+/* Manita y carita que aparecen solo cuando se alcanza una racha mayor */
+.racha .manita, .racha .carita {
+    display: none;
+    animation: saludo 2s ease-out forwards;
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.racha.saludar .manita, .racha.saludar .carita {
+    display: block;
+}

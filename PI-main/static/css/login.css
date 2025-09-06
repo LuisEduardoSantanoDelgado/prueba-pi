@@ -1,0 +1,106 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    background: #ffffff;
+    margin: 0;
+}
+
+.login-container {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 300px;
+    width: 100%;
+    border: 2px solid #dddddd;
+}
+
+.logo {
+    display: block;
+    margin: 0 auto;
+    width: 300px;
+    height: auto;
+}
+
+h2 {
+    font-size: 16px;
+    font-weight: 800;
+    color: #414141;
+}
+
+h3 {
+    margin: 20px 0 10px;
+    font-size: 35px;
+    font-weight: 1000;
+    color: #414141;
+}
+
+.password-container {
+    position: relative;
+}
+
+.password-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+}
+
+.password-container .show-password {
+    position: absolute;
+    top: 31%;
+    transform: translateY(-50%);
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    background: #8000d0;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-weight: bolder;
+    font-size: 25px;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: #414141;
+}
+
+form button:hover {
+    background: #650094;
+    box-shadow: inset;
+    transform: scale(1.1);
+    
+}
+
+.register-link {
+    margin-top: 15px;
+    font-size: 13px;
+}
+
+.register-link a {
+    color: #8000d0;
+    text-decoration: none;
+    font-weight: bolder;
+
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+    
+}

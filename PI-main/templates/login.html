@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Priority Pulse</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/login.css') }}">
+</head>
+<body>
+
+    <div class="login-container">
+        <img src="{{ url_for('static', filename='/img/logo.png') }}" alt="Priority Pulse Logo" class="logo">
+        <h2>Haz de tus tareas una prioridad</h2>
+        <h3>Login</h3>
+        {% if error %}
+            <p style="color: red; font-weight: bold;">{{ error }}</p>
+        {% endif %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                    {% for category, message in messages %}
+                        <p style="color: green; font-weight: bold;">{{ message }}</p> 
+                    {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST" action="{{ url_for('login') }}">
+            <input type="email" name="email" placeholder="Email" required>
+            <div class="password-container">
+                <input type="password" name="password" placeholder="Contraseña" id="pwd" required>
+                <input type="checkbox" class="show-password" onclick="pwd.type=this.checked ? 'text': 'password'">
+            </div>
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+        <p class="register-link">¿No tienes cuenta? <a href="{{ url_for('registrarse') }}">Regístrate</a></p>
+    </div>
+</body>
+</html>
+

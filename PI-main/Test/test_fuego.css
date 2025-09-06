@@ -1,0 +1,382 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(to bottom, #0c1445, #1a1a2e, #16213e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  color: #fff;
+}
+
+.contenedor {
+  text-align: center;
+  z-index: 10;
+  padding: 20px;
+  background: rgba(10, 15, 40, 0.7);
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 100, 255, 0.3);
+}
+
+.info-racha {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
+  font-size: 1.2em;
+}
+
+.info-racha span {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 20px;
+  border-radius: 20px;
+}
+
+.racha-container {
+  margin: 20px;
+  position: relative;
+  display: inline-block;
+  filter: drop-shadow(0 0 15px rgba(255, 100, 0, 0.5));
+  transition: filter 0.5s ease;
+}
+
+.fogata {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.fogata.etapa-0 { width: 80px; height: 80px; }
+.fogata.etapa-1 { width: 90px; height: 90px; }
+.fogata.etapa-2 { width: 100px; height: 100px; }
+.fogata.etapa-3 { width: 110px; height: 110px; }
+.fogata.etapa-4 { width: 120px; height: 120px; filter: drop-shadow(0 0 10px rgba(255, 100, 0, 0.5)); }
+.fogata.etapa-5 { width: 130px; height: 130px; }
+.fogata.etapa-6 { width: 140px; height: 140px; }
+.fogata.etapa-7 { width: 150px; height: 150px; }
+.fogata.etapa-8 { width: 160px; height: 160px; }
+.fogata.etapa-9 { width: 170px; height: 170px; filter: drop-shadow(0 0 15px rgba(255, 80, 0, 0.6)); }
+.fogata.etapa-10 { width: 180px; height: 180px; }
+.fogata.etapa-11 { width: 190px; height: 190px; }
+.fogata.etapa-12 { width: 200px; height: 200px; }
+.fogata.etapa-13 { width: 210px; height: 210px; }
+.fogata.etapa-14 { width: 220px; height: 220px; filter: drop-shadow(0 0 20px rgba(255, 60, 0, 0.7)); }
+.fogata.etapa-15 { width: 230px; height: 230px; }
+.fogata.etapa-16 { width: 240px; height: 240px; }
+.fogata.etapa-17 { width: 250px; height: 250px; }
+.fogata.etapa-18 { width: 260px; height: 260px; filter: drop-shadow(0 0 25px rgba(255, 40, 0, 0.8)); }
+.fogata.etapa-19 { 
+  width: 280px; 
+  height: 280px; 
+  filter: drop-shadow(0 0 30px rgba(0, 150, 255, 0.8)) 
+          drop-shadow(0 0 50px rgba(100, 200, 255, 0.6));
+}
+
+.llamas {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+}
+
+.llama {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50% 50% 35% 35%;
+  opacity: 0.85;
+  filter: blur(1px);
+  transform-origin: bottom center;
+  transition: all 1s ease;
+}
+
+.llama-1 {
+  width: 80%;
+  height: 80%;
+  z-index: 3;
+  animation: flame1 2.5s infinite ease-in-out;
+}
+
+.llama-2 {
+  width: 70%;
+  height: 70%;
+  z-index: 4;
+  animation: flame2 2s infinite ease-in-out;
+  animation-delay: 0.3s;
+}
+
+.llama-3 {
+  width: 60%;
+  height: 60%;
+  z-index: 5;
+  animation: flame3 1.7s infinite ease-in-out;
+  animation-delay: 0.6s;
+}
+
+.llama-4 {
+  width: 50%;
+  height: 50%;
+  z-index: 6;
+  animation: flame4 1.3s infinite ease-in-out alternate;
+}
+
+.fogata.etapa-0 .llama-1 { background: radial-gradient(circle at 30% 40%, #fff9c4, #ffb74d 40%, #ff7043 70%, #f4511e); }
+.fogata.etapa-0 .llama-2 { background: radial-gradient(circle at 40% 30%, #fffde7, #ffcc80 40%, #ff8a65 70%, #e64a19); }
+.fogata.etapa-0 .llama-3 { background: radial-gradient(circle at 50% 20%, #ffffff, #ffd54f 30%, #ffa726 60%, #ff6d00); }
+.fogata.etapa-0 .llama-4 { background: radial-gradient(circle at 50% 20%, #fffff0, #ffecb3 30%, #ffcc80 60%, #ff9800); }
+
+.fogata.etapa-1 .llama-1 { background: radial-gradient(circle at 30% 40%, #fff59d, #ffb74d 40%, #ff7043 70%, #f4511e); }
+.fogata.etapa-1 .llama-2 { background: radial-gradient(circle at 40% 30%, #fff8e1, #ffcc80 40%, #ff8a65 70%, #e64a19); }
+.fogata.etapa-1 .llama-3 { background: radial-gradient(circle at 50% 20%, #fffde7, #ffd54f 30%, #ffa726 60%, #ff6d00); }
+.fogata.etapa-1 .llama-4 { background: radial-gradient(circle at 50% 20%, #fff9c4, #ffecb3 30%, #ffcc80 60%, #ff9800); }
+
+.fogata.etapa-2 .llama-1 { background: radial-gradient(circle at 30% 40%, #fff176, #ffb74d 40%, #ff7043 70%, #f4511e); }
+.fogata.etapa-2 .llama-2 { background: radial-gradient(circle at 40% 30%, #fff3e0, #ffcc80 40%, #ff8a65 70%, #e64a19); }
+.fogata.etapa-2 .llama-3 { background: radial-gradient(circle at 50% 20%, #fff8e1, #ffd54f 30%, #ffa726 60%, #ff6d00); }
+.fogata.etapa-2 .llama-4 { background: radial-gradient(circle at 50% 20%, #fff59d, #ffecb3 30%, #ffcc80 60%, #ff9800); }
+
+.fogata.etapa-3 .llama-1 { background: radial-gradient(circle at 30% 40%, #ffee58, #ffb74d 40%, #ff7043 70%, #f4511e); }
+.fogata.etapa-3 .llama-2 { background: radial-gradient(circle at 40% 30%, #ffecb3, #ffcc80 40%, #ff8a65 70%, #e64a19); }
+.fogata.etapa-3 .llama-3 { background: radial-gradient(circle at 50% 20%, #fff3e0, #ffd54f 30%, #ffa726 60%, #ff6d00); }
+.fogata.etapa-3 .llama-4 { background: radial-gradient(circle at 50% 20%, #fff176, #ffecb3 30%, #ffcc80 60%, #ff9800); }
+
+.fogata.etapa-4 .llama-1 { background: radial-gradient(circle at 30% 40%, #ffd54f, #ffb74d 40%, #ff7043 70%, #f4511e); }
+.fogata.etapa-4 .llama-2 { background: radial-gradient(circle at 40% 30%, #ffe082, #ffcc80 40%, #ff8a65 70%, #e64a19); }
+.fogata.etapa-4 .llama-3 { background: radial-gradient(circle at 50% 20%, #ffecb3, #ffd54f 30%, #ffa726 60%, #ff6d00); }
+.fogata.etapa-4 .llama-4 { background: radial-gradient(circle at 50% 20%, #ffee58, #ffecb3 30%, #ffcc80 60%, #ff9800); }
+
+.fogata.etapa-5 .llama-1 { background: radial-gradient(circle at 30% 40%, #ffb74d, #ff8a65 40%, #f4511e 70%, #d84315); }
+.fogata.etapa-5 .llama-2 { background: radial-gradient(circle at 40% 30%, #ffcc80, #ffa726 40%, #f4511e 70%, #bf360c); }
+.fogata.etapa-5 .llama-3 { background: radial-gradient(circle at 50% 20%, #ffe082, #ff9800 30%, #e64a19 60%, #9c27b0); }
+.fogata.etapa-5 .llama-4 { background: radial-gradient(circle at 50% 20%, #ffd54f, #ff7043 30%, #d84315 60%, #7b1fa2); }
+
+.fogata.etapa-6 .llama-1 { background: radial-gradient(circle at 30% 40%, #ffa726, #ff8a65 40%, #f4511e 70%, #d84315); }
+.fogata.etapa-6 .llama-2 { background: radial-gradient(circle at 40% 30%, #ffb74d, #ffa726 40%, #f4511e 70%, #bf360c); }
+.fogata.etapa-6 .llama-3 { background: radial-gradient(circle at 50% 20%, #ffcc80, #ff9800 30%, #e64a19 60%, #9c27b0); }
+.fogata.etapa-6 .llama-4 { background: radial-gradient(circle at 50% 20%, #ffb74d, #ff7043 30%, #d84315 60%, #7b1fa2); }
+
+.fogata.etapa-7 .llama-1 { background: radial-gradient(circle at 30% 40%, #ff9800, #ff8a65 40%, #f4511e 70%, #d84315); }
+.fogata.etapa-7 .llama-2 { background: radial-gradient(circle at 40% 30%, #ffa726, #ffa726 40%, #f4511e 70%, #bf360c); }
+.fogata.etapa-7 .llama-3 { background: radial-gradient(circle at 50% 20%, #ffb74d, #ff9800 30%, #e64a19 60%, #9c27b0); }
+.fogata.etapa-7 .llama-4 { background: radial-gradient(circle at 50% 20%, #ffa726, #ff7043 30%, #d84315 60%, #7b1fa2); }
+
+.fogata.etapa-8 .llama-1 { background: radial-gradient(circle at 30% 40%, #ff8a65, #ff7043 40%, #f4511e 70%, #d84315); }
+.fogata.etapa-8 .llama-2 { background: radial-gradient(circle at 40% 30%, #ff9800, #ff8a65 40%, #f4511e 70%, #bf360c); }
+.fogata.etapa-8 .llama-3 { background: radial-gradient(circle at 50% 20%, #ffa726, #ff7043 30%, #e64a19 60%, #9c27b0); }
+.fogata.etapa-8 .llama-4 { background: radial-gradient(circle at 50% 20%, #ff8a65, #ff5722 30%, #d84315 60%, #7b1fa2); }
+
+.fogata.etapa-9 .llama-1 { background: radial-gradient(circle at 30% 40%, #ff7043, #ff5722 40%, #f4511e 70%, #d84315); }
+.fogata.etapa-9 .llama-2 { background: radial-gradient(circle at 40% 30%, #ff8a65, #ff7043 40%, #f4511e 70%, #bf360c); }
+.fogata.etapa-9 .llama-3 { background: radial-gradient(circle at 50% 20%, #ff9800, #ff5722 30%, #e64a19 60%, #9c27b0); }
+.fogata.etapa-9 .llama-4 { background: radial-gradient(circle at 50% 20%, #ff7043, #ff3d00 30%, #d84315 60%, #7b1fa2); }
+
+.fogata.etapa-10 .llama-1 { background: radial-gradient(circle at 30% 40%, #ff5722, #f4511e 40%, #d84315 70%, #9c27b0); }
+.fogata.etapa-10 .llama-2 { background: radial-gradient(circle at 40% 30%, #ff7043, #e64a19 40%, #bf360c 70%, #8e24aa); }
+.fogata.etapa-10 .llama-3 { background: radial-gradient(circle at 50% 20%, #ff8a65, #d84315 30%, #9c27b0 60%, #6a1b9a); }
+.fogata.etapa-10 .llama-4 { background: radial-gradient(circle at 50% 20%, #ff5722, #bf360c 30%, #7b1fa2 60%, #5e35b1); }
+
+.fogata.etapa-11 .llama-1 { background: radial-gradient(circle at 30% 40%, #f4511e, #e64a19 40%, #d84315 70%, #8e24aa); }
+.fogata.etapa-11 .llama-2 { background: radial-gradient(circle at 40% 30%, #ff5722, #d84315 40%, #bf360c 70%, #7b1fa2); }
+.fogata.etapa-11 .llama-3 { background: radial-gradient(circle at 50% 20%, #ff7043, #bf360c 30%, #8e24aa 60%, #5e35b1); }
+.fogata.etapa-11 .llama-4 { background: radial-gradient(circle at 50% 20%, #f4511e, #9c27b0 30%, #6a1b9a 60%, #4527a0); }
+
+.fogata.etapa-12 .llama-1 { background: radial-gradient(circle at 30% 40%, #e64a19, #d84315 40%, #bf360c 70%, #7b1fa2); }
+.fogata.etapa-12 .llama-2 { background: radial-gradient(circle at 40% 30%, #f4511e, #bf360c 40%, #9c27b0 70%, #6a1b9a); }
+.fogata.etapa-12 .llama-3 { background: radial-gradient(circle at 50% 20%, #ff5722, #9c27b0 30%, #7b1fa2 60%, #5e35b1); }
+.fogata.etapa-12 .llama-4 { background: radial-gradient(circle at 50% 20%, #e64a19, #8e24aa 30%, #5e35b1 60%, #4527a0); }
+
+.fogata.etapa-13 .llama-1 { background: radial-gradient(circle at 30% 40%, #d84315, #bf360c 40%, #9c27b0 70%, #6a1b9a); }
+.fogata.etapa-13 .llama-2 { background: radial-gradient(circle at 40% 30%, #e64a19, #9c27b0 40%, #8e24aa 70%, #5e35b1); }
+.fogata.etapa-13 .llama-3 { background: radial-gradient(circle at 50% 20%, #f4511e, #8e24aa 30%, #6a1b9a 60%, #5e35b1); }
+.fogata.etapa-13 .llama-4 { background: radial-gradient(circle at 50% 20%, #d84315, #7b1fa2 30%, #5e35b1 60%, #4527a0); }
+
+.fogata.etapa-14 .llama-1 { background: radial-gradient(circle at 30% 40%, #bf360c, #9c27b0 40%, #8e24aa 70%, #5e35b1); }
+.fogata.etapa-14 .llama-2 { background: radial-gradient(circle at 40% 30%, #d84315, #8e24aa 40%, #7b1fa2 70%, #5e35b1); }
+.fogata.etapa-14 .llama-3 { background: radial-gradient(circle at 50% 20%, #e64a19, #7b1fa2 30%, #6a1b9a 60%, #5e35b1); }
+.fogata.etapa-14 .llama-4 { background: radial-gradient(circle at 50% 20%, #bf360c, #6a1b9a 30%, #5e35b1 60%, #4527a0); }
+
+.fogata.etapa-15 .llama-1 { background: radial-gradient(circle at 30% 40%, #9c27b0, #8e24aa 40%, #7b1fa2 70%, #5e35b1); }
+.fogata.etapa-15 .llama-2 { background: radial-gradient(circle at 40% 30%, #8e24aa, #7b1fa2 40%, #6a1b9a 70%, #5e35b1); }
+.fogata.etapa-15 .llama-3 { background: radial-gradient(circle at 50% 20%, #7b1fa2, #6a1b9a 30%, #5e35b1 60%, #4527a0); }
+.fogata.etapa-15 .llama-4 { background: radial-gradient(circle at 50% 20%, #6a1b9a, #5e35b1 30%, #4527a0 60%, #311b92); }
+
+.fogata.etapa-16 .llama-1 { background: radial-gradient(circle at 30% 40%, #8e24aa, #7b1fa2 40%, #6a1b9a 70%, #5e35b1); }
+.fogata.etapa-16 .llama-2 { background: radial-gradient(circle at 40% 30%, #7b1fa2, #6a1b9a 40%, #5e35b1 70%, #4527a0); }
+.fogata.etapa-16 .llama-3 { background: radial-gradient(circle at 50% 20%, #6a1b9a, #5e35b1 30%, #4527a0 60%, #3949ab); }
+.fogata.etapa-16 .llama-4 { background: radial-gradient(circle at 50% 20%, #5e35b1, #4527a0 30%, #3949ab 60%, #303f9f); }
+
+.fogata.etapa-17 .llama-1 { background: radial-gradient(circle at 30% 40%, #7b1fa2, #6a1b9a 40%, #5e35b1 70%, #4527a0); }
+.fogata.etapa-17 .llama-2 { background: radial-gradient(circle at 40% 30%, #6a1b9a, #5e35b1 40%, #4527a0 70%, #3949ab); }
+.fogata.etapa-17 .llama-3 { background: radial-gradient(circle at 50% 20%, #5e35b1, #4527a0 30%, #3949ab 60%, #303f9f); }
+.fogata.etapa-17 .llama-4 { background: radial-gradient(circle at 50% 20%, #4527a0, #3949ab 30%, #303f9f 60%, #283593); }
+
+.fogata.etapa-18 .llama-1 { background: radial-gradient(circle at 30% 40%, #6a1b9a, #5e35b1 40%, #4527a0 70%, #3949ab); }
+.fogata.etapa-18 .llama-2 { background: radial-gradient(circle at 40% 30%, #5e35b1, #4527a0 40%, #3949ab 70%, #303f9f); }
+.fogata.etapa-18 .llama-3 { background: radial-gradient(circle at 50% 20%, #4527a0, #3949ab 30%, #303f9f 60%, #283593); }
+.fogata.etapa-18 .llama-4 { background: radial-gradient(circle at 50% 20%, #3949ab, #303f9f 30%, #283593 60%, #1a237e); }
+
+.fogata.etapa-19 .llama-1 { background: radial-gradient(circle at 30% 40%, #5e35b1, #4527a0 40%, #3949ab 70%, #303f9f); }
+.fogata.etapa-19 .llama-2 { background: radial-gradient(circle at 40% 30%, #4527a0, #3949ab 40%, #303f9f 70%, #283593); }
+.fogata.etapa-19 .llama-3 { background: radial-gradient(circle at 50% 20%, #3949ab, #303f9f 30%, #283593 60%, #1a237e); }
+.fogata.etapa-19 .llama-4 { background: radial-gradient(circle at 50% 20%, #303f9f, #283593 30%, #1a237e 60%, #0d47a1); }
+
+@keyframes flame1 {
+  0%, 100% { transform: translateX(-50%) scaleY(1) scaleX(1); }
+  25% { transform: translateX(-48%) scaleY(1.1) scaleX(0.95); }
+  50% { transform: translateX(-52%) scaleY(1.2) scaleX(1.05); }
+  75% { transform: translateX(-50%) scaleY(1.05) scaleX(0.98); }
+}
+
+@keyframes flame2 {
+  0%, 100% { transform: translateX(-50%) scaleY(1) scaleX(1); }
+  25% { transform: translateX(-52%) scaleY(1.15) scaleX(0.97); }
+  50% { transform: translateX(-48%) scaleY(1.25) scaleX(1.07); }
+  75% { transform: translateX(-50%) scaleY(1.1) scaleX(0.95); }
+}
+
+@keyframes flame3 {
+  0%, 100% { transform: translateX(-50%) scaleY(1) scaleX(1); }
+  25% { transform: translateX(-49%) scaleY(1.2) scaleX(0.98); }
+  50% { transform: translateX(-51%) scaleY(1.3) scaleX(1.08); }
+  75% { transform: translateX(-50%) scaleY(1.15) scaleX(0.93); }
+}
+
+@keyframes flame4 {
+  0%, 100% { transform: translateX(-50%) scaleY(1) scaleX(1); }
+  50% { transform: translateX(-50%) scaleY(1.4) scaleX(1.1); }
+}
+
+.centro {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20%;
+  height: 20%;
+  background: #000;
+  border-radius: 50%;
+  z-index: 2;
+  transition: all 1s ease;
+}
+
+.resplandor {
+  position: absolute;
+  bottom: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200%;
+  height: 50%;
+  border-radius: 50%;
+  z-index: 1;
+  animation: glow 3s infinite alternate;
+  transition: all 1s ease;
+}
+
+.fogata.etapa-0 .resplandor { background: radial-gradient(circle, rgba(255, 140, 0, 0.3) 0%, rgba(255, 80, 0, 0.2) 40%, transparent 70%); }
+.fogata.etapa-1 .resplandor { background: radial-gradient(circle, rgba(255, 140, 0, 0.32) 0%, rgba(255, 80, 0, 0.22) 40%, transparent 70%); }
+.fogata.etapa-2 .resplandor { background: radial-gradient(circle, rgba(255, 140, 0, 0.34) 0%, rgba(255, 80, 0, 0.24) 40%, transparent 70%); }
+.fogata.etapa-3 .resplandor { background: radial-gradient(circle, rgba(255, 140, 0, 0.36) 0%, rgba(255, 80, 0, 0.26) 40%, transparent 70%); }
+.fogata.etapa-4 .resplandor { background: radial-gradient(circle, rgba(255, 140, 0, 0.38) 0%, rgba(255, 80, 0, 0.28) 40%, transparent 70%); }
+.fogata.etapa-5 .resplandor { background: radial-gradient(circle, rgba(255, 100, 0, 0.4) 0%, rgba(255, 60, 0, 0.3) 40%, transparent 70%); }
+.fogata.etapa-6 .resplandor { background: radial-gradient(circle, rgba(255, 100, 0, 0.42) 0%, rgba(255, 60, 0, 0.32) 40%, transparent 70%); }
+.fogata.etapa-7 .resplandor { background: radial-gradient(circle, rgba(255, 100, 0, 0.44) 0%, rgba(255, 60, 0, 0.34) 40%, transparent 70%); }
+.fogata.etapa-8 .resplandor { background: radial-gradient(circle, rgba(255, 100, 0, 0.46) 0%, rgba(255, 60, 0, 0.36) 40%, transparent 70%); }
+.fogata.etapa-9 .resplandor { background: radial-gradient(circle, rgba(255, 100, 0, 0.48) 0%, rgba(255, 60, 0, 0.38) 40%, transparent 70%); }
+.fogata.etapa-10 .resplandor { background: radial-gradient(circle, rgba(255, 60, 0, 0.5) 0%, rgba(255, 30, 0, 0.3) 40%, transparent 70%); }
+.fogata.etapa-11 .resplandor { background: radial-gradient(circle, rgba(255, 60, 0, 0.52) 0%, rgba(255, 30, 0, 0.32) 40%, transparent 70%); }
+.fogata.etapa-12 .resplandor { background: radial-gradient(circle, rgba(255, 60, 0, 0.54) 0%, rgba(255, 30, 0, 0.34) 40%, transparent 70%); }
+.fogata.etapa-13 .resplandor { background: radial-gradient(circle, rgba(255, 60, 0, 0.56) 0%, rgba(255, 30, 0, 0.36) 40%, transparent 70%); }
+.fogata.etapa-14 .resplandor { background: radial-gradient(circle, rgba(255, 60, 0, 0.58) 0%, rgba(255, 30, 0, 0.38) 40%, transparent 70%); }
+.fogata.etapa-15 .resplandor { background: radial-gradient(circle, rgba(180, 40, 180, 0.5) 0%, rgba(140, 20, 140, 0.3) 40%, transparent 70%); }
+.fogata.etapa-16 .resplandor { background: radial-gradient(circle, rgba(170, 50, 190, 0.52) 0%, rgba(150, 30, 150, 0.32) 40%, transparent 70%); }
+.fogata.etapa-17 .resplandor { background: radial-gradient(circle, rgba(160, 60, 200, 0.54) 0%, rgba(160, 40, 160, 0.34) 40%, transparent 70%); }
+.fogata.etapa-18 .resplandor { background: radial-gradient(circle, rgba(150, 70, 210, 0.56) 0%, rgba(170, 50, 170, 0.36) 40%, transparent 70%); }
+.fogata.etapa-19 .resplandor { background: radial-gradient(circle, rgba(0, 150, 255, 0.6) 0%, rgba(0, 100, 200, 0.4) 40%, transparent 70%); }
+
+@keyframes glow {
+  0% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+  100% { opacity: 0.9; transform: translateX(-50%) scale(1.2); }
+}
+
+.chispas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.carita-con-manita {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.6em;
+  z-index: 20;
+  display: none;
+  align-items: center;
+  gap: 3px;
+}
+
+.fogata.saludar .carita-con-manita {
+  display: inline-flex;
+  animation: saludar 2s ease-out forwards;
+}
+
+.carita {
+  font-size: 1.8em;
+  text-shadow: 0 0 10px #ff9800;
+}
+
+.manita {
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 1.5em;
+  animation: saludar-mano 2s ease-in-out;
+  transform-origin: 60% 60%;
+}
+
+@keyframes saludar {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+  20%  { opacity: 1; transform: translate(-50%, -100%) scale(1.2); }
+  40%, 70% { transform: translate(-50%, -120%) scale(1.2); }
+  100% { opacity: 0; transform: translate(-50%, -150%) scale(0.5); }
+}
+
+@keyframes saludar-mano {
+  0%, 100% { transform: rotate(0deg); }
+  20%  { transform: rotate(30deg); }
+  40%  { transform: rotate(-20deg); }
+  60%  { transform: rotate(15deg); }
+  80%  { transform: rotate(-10deg); }
+}
+
+button {
+  background: linear-gradient(to bottom, #ff9800, #f57c00);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1.1em;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  background: linear-gradient(to bottom, #ffa726, #fb8c00);
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
